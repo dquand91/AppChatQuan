@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="luongduongquan.com.chatapp.MainActivity">
+    android:orientation="vertical"
+    tools:context="luongduongquan.com.chatapp.SignUpActivity">
 
-    <ImageView
-        android:id="@+id/imageLogin"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/star"/>
-    
     <LinearLayout
-        android:id="@+id/groupEdtLogin"
+        android:id="@+id/groupEdtSignup"
         android:layout_below="@+id/imageLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,9 +18,9 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            
+
             <EditText
-                android:id="@+id/main_edtLogin"
+                android:id="@+id/signup_edtUser"
                 android:hint="Enter your username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -38,7 +31,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/main_edtPassword"
+                android:id="@+id/signup_edtPass"
                 android:hint="Enter your password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -47,17 +40,17 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/group_login"
+        android:id="@+id/group_Signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="2"
         android:layout_below="@+id/groupEdtLogin">
         <Button
-            android:id="@+id/main_btnLogin"
+            android:id="@+id/signup_btnSignup"
             android:background="@color/colorPrimaryDark"
             android:textColor="@color/colorAccent"
-            android:text="Login"
+            android:text="SignUp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -65,10 +58,10 @@
             style="@style/Base.Widget.AppCompat.Button.Borderless"/>
 
         <Button
-            android:id="@+id/main_btnSignup"
+            android:id="@+id/signup_btnCancel"
             android:background="#01579B"
             android:textColor="@color/colorAccent"
-            android:text="SignUp"
+            android:text="Cancel"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -77,6 +70,4 @@
 
     </LinearLayout>
 
-
-
-</RelativeLayout>
+</LinearLayout>
