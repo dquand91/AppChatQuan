@@ -18,7 +18,7 @@ import com.quickblox.users.model.QBUser;
 public class SignUpActivity extends AppCompatActivity {
 
 	Button btnSignUp, btnCancel;
-	EditText edtUser, edtPassword;
+	EditText edtUser, edtPassword, edtFullName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +32,17 @@ public class SignUpActivity extends AppCompatActivity {
 
 		edtUser = findViewById(R.id.signup_edtUser);
 		edtPassword = findViewById(R.id.signup_edtPass);
+		edtFullName = findViewById(R.id.signup_edtFullName);
 
 		btnSignUp.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				String user = edtUser.getText().toString();
 				String password = edtPassword.getText().toString();
+				String fullname = edtFullName.getText().toString();
 
 				QBUser qbUser = new QBUser(user, password);
+				qbUser.setFullName(fullname);
 				QBUsers.signUp(qbUser).performAsync(new QBEntityCallback<QBUser>() {
 					@Override
 					public void onSuccess(QBUser qbUser, Bundle bundle) {

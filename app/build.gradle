@@ -29,4 +29,6 @@ dependencies {
     compile 'com.android.support:design:25.2.0'
     compile 'com.quickblox:quickblox-android-sdk-core:3.3.0'
     compile 'com.quickblox:quickblox-android-sdk-chat:3.3.0'
+    compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+
 }

@@ -59,14 +59,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		switch (view.getId()){
 			case R.id.main_btnLogin:
 
-				String user = edtUser.getText().toString();
-				String password = edtPassword.getText().toString();
+				final String user = edtUser.getText().toString();
+				final String password = edtPassword.getText().toString();
 
 				QBUser qbUser = new QBUser(user, password);
 				QBUsers.signIn(qbUser).performAsync(new QBEntityCallback<QBUser>() {
 					@Override
 					public void onSuccess(QBUser qbUser, Bundle bundle) {
 						Toast.makeText(MainActivity.this, "Login success! User = " + qbUser.getLogin().toString() + "", Toast.LENGTH_SHORT ).show();
+						Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+						intent.putExtra("user", user);
+						intent.putExtra("password", password);
+						startActivity(intent);
 					}
 
 					@Override
@@ -80,7 +84,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				break;
 
 			case R.id.main_btnSignup:
-				startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+//				startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+				startActivity(new Intent(MainActivity.this, TestActivity.class));
 				break;
 		}
 
