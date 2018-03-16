@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 import luongduongquan.com.chatapp.Adapter.ListUserAdapter;
 import luongduongquan.com.chatapp.Common.Common;
-import luongduongquan.com.chatapp.Holder.QBUserHolder;
+import luongduongquan.com.chatapp.Holder.UserHolder;
 
 public class ListUserChatActivity extends AppCompatActivity {
 
@@ -143,7 +143,7 @@ public class ListUserChatActivity extends AppCompatActivity {
 			@Override
 			public void onSuccess(ArrayList<QBUser> qbUsers, Bundle bundle) {
 
-				QBUserHolder.getInstance().putUsers(qbUsers);
+				UserHolder.getInstance().putUsers(qbUsers);
 
 				ArrayList<QBUser> listUserNoCurrentUser =new ArrayList<>();
 				for(QBUser user : qbUsers){

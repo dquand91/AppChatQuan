@@ -11,20 +11,20 @@ import java.util.List;
  * Created by luong.duong.quan on 3/15/2018.
  */
 
-public class QBUserHolder {
+public class UserHolder {
 
-	private static QBUserHolder instance;
+	private static UserHolder instance;
 
 	private SparseArray<QBUser> qbUserSparseArray;
 
-	public static synchronized QBUserHolder getInstance(){
+	public static synchronized UserHolder getInstance(){
 		if (instance == null ){
-			instance = new QBUserHolder();
+			instance = new UserHolder();
 		}
 		return instance;
 	}
 
-	private QBUserHolder(){
+	private UserHolder(){
 		qbUserSparseArray = new SparseArray<>();
 	}
 

@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.quickblox.auth.QBAuth;
@@ -19,11 +20,14 @@ import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.BaseServiceException;
 import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.core.request.QBRequestGetBuilder;
+import com.quickblox.users.QBUsers;
 import com.quickblox.users.model.QBUser;
 
 import java.util.ArrayList;
 
 import luongduongquan.com.chatapp.Adapter.ChatDialogAdatper;
+import luongduongquan.com.chatapp.Common.Common;
+import luongduongquan.com.chatapp.Holder.UserHolder;
 
 public class ChatDialogActivity extends AppCompatActivity {
 
@@ -36,6 +40,15 @@ public class ChatDialogActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_chat_dialog);
 
 		listChatDialogs = findViewById(R.id.listChatDialogs);
+		listChatDialogs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+				QBChatDialog qbChatDialog = (QBChatDialog) listChatDialogs.getAdapter().getItem(i);
+				Intent intent = new Intent(ChatDialogActivity.this, ChatMessageActivity.class);
+				intent.putExtra(Common.DIALOG_CHAT_EXTRA, qbChatDialog);
+				startActivity(intent);
+			}
+		});
 
 		crateSessionforChat();
 		
@@ -69,6 +82,20 @@ public class ChatDialogActivity extends AppCompatActivity {
 		String user, password;
 		user = getIntent().getStringExtra("user");
 		password = getIntent().getStringExtra("password");
+
+		// Load all user and save to cache
+		QBUsers.getUsers(null).performAsync(new QBEntityCallback<ArrayList<QBUser>>() {
+			@Override
+			public void onSuccess(ArrayList<QBUser> qbUsers, Bundle bundle) {
+				UserHolder.getInstance().putUsers(qbUsers);
+			}
+
+			@Override
+			public void onError(QBResponseException e) {
+
+			}
+		});
+
 
 		final QBUser qbUser = new QBUser(user, password);
 		QBAuth.createSession(qbUser).performAsync(new QBEntityCallback<QBSession>() {
