@@ -49,7 +49,7 @@ public class ChatDialogAdatper extends BaseAdapter {
 	public View getView(int i, View view, ViewGroup viewGroup) {
 
 		View viewRow = view;
-		if (view == null){
+		if (viewRow == null){
 
 			LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			viewRow = inflater.inflate(R.layout.item_chat_dialog, null);
@@ -62,7 +62,7 @@ public class ChatDialogAdatper extends BaseAdapter {
 			imgChatDialog = viewRow.findViewById(R.id.img_item_ChatDialog);
 
 			tvMessage.setText(listQBChatDialog.get(i).getLastMessage());
-			tvTitle.setText(listQBChatDialog.get(i).getLastMessage());
+			tvTitle.setText(listQBChatDialog.get(i).getName());
 
 
 			ColorGenerator colorGenerator = ColorGenerator.MATERIAL;

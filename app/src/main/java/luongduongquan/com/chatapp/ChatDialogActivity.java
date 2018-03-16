@@ -35,6 +35,8 @@ public class ChatDialogActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chat_dialog);
 
+		listChatDialogs = findViewById(R.id.listChatDialogs);
+
 		crateSessionforChat();
 		
 		loadChatDialogs();
@@ -50,25 +52,10 @@ public class ChatDialogActivity extends AppCompatActivity {
 
 	}
 
-	private void loadChatDialogs() {
-
-		QBRequestGetBuilder qbRequestGetBuilder = new QBRequestGetBuilder();
-		qbRequestGetBuilder.setLimit(100); // mỗi lần chỉ lấy 100 records trả về thôi
-
-		QBRestChatService.getChatDialogs(null, qbRequestGetBuilder).performAsync(new QBEntityCallback<ArrayList<QBChatDialog>>() {
-			@Override
-			public void onSuccess(ArrayList<QBChatDialog> qbChatDialogs, Bundle bundle) {
-				ChatDialogAdatper adatper = new ChatDialogAdatper(getBaseContext(), qbChatDialogs);
-				listChatDialogs.setAdapter(adatper);
-				adatper.notifyDataSetChanged();
-			}
-
-			@Override
-			public void onError(QBResponseException e) {
-				Log.e("ERROR", "" + e.getMessage());
-			}
-		});
-
+	@Override
+	protected void onResume() {
+		super.onResume();
+		loadChatDialogs();
 
 	}
 
@@ -116,4 +103,28 @@ public class ChatDialogActivity extends AppCompatActivity {
 		});
 
 	}
+
+	private void loadChatDialogs() {
+
+		QBRequestGetBuilder qbRequestGetBuilder = new QBRequestGetBuilder();
+		qbRequestGetBuilder.setLimit(100); // mỗi lần chỉ lấy 100 records trả về thôi
+
+		QBRestChatService.getChatDialogs(null, qbRequestGetBuilder).performAsync(new QBEntityCallback<ArrayList<QBChatDialog>>() {
+			@Override
+			public void onSuccess(ArrayList<QBChatDialog> qbChatDialogs, Bundle bundle) {
+				ChatDialogAdatper adatper = new ChatDialogAdatper(getBaseContext(), qbChatDialogs);
+				listChatDialogs.setAdapter(adatper);
+				adatper.notifyDataSetChanged();
+			}
+
+			@Override
+			public void onError(QBResponseException e) {
+				Log.e("ERROR", "" + e.getMessage());
+			}
+		});
+
+
+	}
+
+
 }

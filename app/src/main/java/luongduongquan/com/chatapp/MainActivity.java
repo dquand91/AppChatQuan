@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 					@Override
 					public void onSuccess(QBUser qbUser, Bundle bundle) {
 						Toast.makeText(MainActivity.this, "Login success! User = " + qbUser.getLogin().toString() + "", Toast.LENGTH_SHORT ).show();
-						Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+						Intent intent = new Intent(MainActivity.this, ChatDialogActivity.class);
 						intent.putExtra("user", user);
 						intent.putExtra("password", password);
 						startActivity(intent);
@@ -84,8 +84,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				break;
 
 			case R.id.main_btnSignup:
-//				startActivity(new Intent(MainActivity.this, SignUpActivity.class));
-				startActivity(new Intent(MainActivity.this, TestActivity.class));
+				startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+//				startActivity(new Intent(MainActivity.this, TestActivity.class));
 				break;
 		}
 

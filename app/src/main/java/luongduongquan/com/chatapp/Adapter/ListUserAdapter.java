@@ -51,7 +51,6 @@ public class ListUserAdapter extends BaseAdapter {
 			TextView tvName = viewRow.findViewById(android.R.id.text1);
 			tvName.setText(listUser.get(i).getLogin());
 
-
 		}
 
 

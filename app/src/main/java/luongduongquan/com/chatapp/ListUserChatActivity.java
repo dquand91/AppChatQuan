@@ -24,11 +24,13 @@ import java.util.ArrayList;
 
 import luongduongquan.com.chatapp.Adapter.ListUserAdapter;
 import luongduongquan.com.chatapp.Common.Common;
+import luongduongquan.com.chatapp.Holder.QBUserHolder;
 
 public class ListUserChatActivity extends AppCompatActivity {
 
 	ListView listViewUsers;
 	Button btnCreateChat;
+	private static String TAG = "ListUserChatActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,11 @@ public class ListUserChatActivity extends AppCompatActivity {
 
 		listViewUsers =findViewById(R.id.listUsers_Chat);
 		listViewUsers.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
+		retrieveAllUser();
+
+
+
 
 		btnCreateChat = findViewById(R.id.btn_createChat_ListUserChat);
 		btnCreateChat.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +59,7 @@ public class ListUserChatActivity extends AppCompatActivity {
 				}
 			}
 		});
-		retrieveAllUser();
+
 
 	}
 
@@ -74,6 +81,7 @@ public class ListUserChatActivity extends AppCompatActivity {
 		// Create Chat dialog
 		QBChatDialog dialogChat = new QBChatDialog();
 		dialogChat.setName(Common.createChatDialogName(choiceIdsList));
+		Log.d(TAG, "QUAN choiceIdsList = " + Common.createChatDialogName(choiceIdsList));
 		dialogChat.setType(QBDialogType.GROUP);
 		dialogChat.setOccupantsIds(choiceIdsList);
 
@@ -87,6 +95,7 @@ public class ListUserChatActivity extends AppCompatActivity {
 
 			@Override
 			public void onError(QBResponseException e) {
+				mDialog.dismiss();
 				Log.e("Error", "" + e.getMessage());
 			}
 		});
@@ -103,7 +112,7 @@ public class ListUserChatActivity extends AppCompatActivity {
 
 		int countChoice = listViewUsers.getCount();
 		for(int i=0; i<countChoice; i++){
-			if(checkedItemPositions .get(i)){
+			if(checkedItemPositions.get(i)){
 				QBUser user = (QBUser) listViewUsers.getItemAtPosition(i);
 				QBChatDialog qbDialog = DialogUtils.buildPrivateDialog(user.getId());
 				QBRestChatService.createChatDialog(qbDialog).performAsync(new QBEntityCallback<QBChatDialog>() {
@@ -116,6 +125,7 @@ public class ListUserChatActivity extends AppCompatActivity {
 
 					@Override
 					public void onError(QBResponseException e) {
+						mDialog.dismiss();
 						Log.e("Error", "" + e.getMessage());
 					}
 				});
@@ -132,13 +142,16 @@ public class ListUserChatActivity extends AppCompatActivity {
 		QBUsers.getUsers(null).performAsync(new QBEntityCallback<ArrayList<QBUser>>() {
 			@Override
 			public void onSuccess(ArrayList<QBUser> qbUsers, Bundle bundle) {
+
+				QBUserHolder.getInstance().putUsers(qbUsers);
+
 				ArrayList<QBUser> listUserNoCurrentUser =new ArrayList<>();
 				for(QBUser user : qbUsers){
 					if (!user.getLogin().equals(QBChatService.getInstance().getUser().getLogin())){
 						listUserNoCurrentUser.add(user);
 					}
 				}
-
+				Log.d(TAG, "retrieveAllUser ===>>> onSuccess");
 				ListUserAdapter listUserAdapter = new ListUserAdapter(getBaseContext(), listUserNoCurrentUser);
 				listViewUsers.setAdapter(listUserAdapter);
 				listUserAdapter.notifyDataSetChanged();
